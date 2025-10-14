@@ -3,6 +3,7 @@ package com.evently.modules.users.presentation.users;
 import com.evently.common.application.IMediator;
 import com.evently.common.application.authorization.PermissionsResponse;
 import com.evently.common.domain.Result;
+import com.evently.common.infrastructure.authentication.UserIdentityService;
 import com.evently.common.presentation.endpoints.IEndpoint;
 import com.evently.common.presentation.endpoints.Permissions;
 import com.evently.common.presentation.endpoints.Tags;
@@ -19,9 +20,11 @@ import static org.springframework.web.servlet.function.RequestPredicates.GET;
 public class GetUserPermissions implements IEndpoint {
 
     private final IMediator mediator;
+    private final UserIdentityService userIdentityService;
 
-    public GetUserPermissions(IMediator mediator) {
+    public GetUserPermissions(IMediator mediator, UserIdentityService userIdentityService) {
         this.mediator = mediator;
+        this.userIdentityService = userIdentityService;
     }
 
     @Override
@@ -34,11 +37,13 @@ public class GetUserPermissions implements IEndpoint {
     private ServerResponse handle(ServerRequest request) {
         try {
             Authentication authentication = (Authentication) request.servletRequest().getUserPrincipal();
-            // For now, we'll use a hardcoded identity ID. In a real implementation,
-            // you'd extract the identity ID from the authentication context
-            String identityId = "user123"; // Placeholder
 
-            GetUserPermissionsQuery query = new GetUserPermissionsQuery(identityId);
+            Result<String> identityIdResult = userIdentityService.getCurrentUserIdentityId(authentication);
+            if (identityIdResult.isFailure()) {
+                return ApiResults.problem(identityIdResult);
+            }
+
+            GetUserPermissionsQuery query = new GetUserPermissionsQuery(identityIdResult.getValue());
             Result<PermissionsResponse> result = mediator.send(query);
 
             return result.match(

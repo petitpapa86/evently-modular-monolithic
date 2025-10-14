@@ -2,6 +2,7 @@ package com.evently.modules.users.presentation.users;
 
 import com.evently.common.application.IMediator;
 import com.evently.common.domain.Result;
+import com.evently.common.infrastructure.authentication.UserIdentityService;
 import com.evently.common.presentation.endpoints.IEndpoint;
 import com.evently.common.presentation.endpoints.Permissions;
 import com.evently.common.presentation.endpoints.Tags;
@@ -22,9 +23,11 @@ import static org.springframework.web.servlet.function.RequestPredicates.PUT;
 public class UpdateUserProfile implements IEndpoint {
 
     private final IMediator mediator;
+    private final UserIdentityService userIdentityService;
 
-    public UpdateUserProfile(IMediator mediator) {
+    public UpdateUserProfile(IMediator mediator, UserIdentityService userIdentityService) {
         this.mediator = mediator;
+        this.userIdentityService = userIdentityService;
     }
 
     @Override
@@ -39,12 +42,13 @@ public class UpdateUserProfile implements IEndpoint {
             UpdateUserRequest updateRequest = request.body(UpdateUserRequest.class);
             Authentication authentication = (Authentication) request.servletRequest().getUserPrincipal();
 
-            // For now, we'll use a hardcoded user ID. In a real implementation,
-            // you'd extract the user ID from the authentication context
-            UUID userId = UUID.fromString("550e8400-e29b-41d4-a716-446655440000"); // Placeholder
+            Result<UUID> userIdResult = userIdentityService.getCurrentUserId(authentication);
+            if (userIdResult.isFailure()) {
+                return ApiResults.problem(userIdResult);
+            }
 
             UpdateUserCommand command = new UpdateUserCommand(
-                    userId,
+                    userIdResult.getValue(),
                     updateRequest.firstName(),
                     updateRequest.lastName()
             );

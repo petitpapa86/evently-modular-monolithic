@@ -1,6 +1,7 @@
 package com.evently.modules.users.presentation;
 
 import com.evently.common.application.Mediator;
+import com.evently.common.infrastructure.authentication.UserIdentityService;
 import com.evently.common.presentation.endpoints.IEndpoint;
 import com.evently.modules.users.application.users.getuser.GetUserQuery;
 import com.evently.modules.users.application.users.getuser.GetUserQueryHandler;
@@ -37,17 +38,20 @@ public class UsersModuleConfiguration {
     private final GetUserQueryHandler getUserHandler;
     private final UpdateUserCommandHandler updateUserHandler;
     private final GetUserPermissionsQueryHandler getUserPermissionsHandler;
+    private final UserIdentityService userIdentityService;
 
     public UsersModuleConfiguration(Mediator mediator,
                                   RegisterUserCommandHandler registerUserHandler,
                                   GetUserQueryHandler getUserHandler,
                                   UpdateUserCommandHandler updateUserHandler,
-                                  GetUserPermissionsQueryHandler getUserPermissionsHandler) {
+                                  GetUserPermissionsQueryHandler getUserPermissionsHandler,
+                                  UserIdentityService userIdentityService) {
         this.mediator = mediator;
         this.registerUserHandler = registerUserHandler;
         this.getUserHandler = getUserHandler;
         this.updateUserHandler = updateUserHandler;
         this.getUserPermissionsHandler = getUserPermissionsHandler;
+        this.userIdentityService = userIdentityService;
     }
 
     @PostConstruct
@@ -65,17 +69,17 @@ public class UsersModuleConfiguration {
 
     @Bean
     public GetUserProfile getUserProfileEndpoint() {
-        return new GetUserProfile(mediator);
+        return new GetUserProfile(mediator, userIdentityService);
     }
 
     @Bean
     public GetUserPermissions getUserPermissionsEndpoint() {
-        return new GetUserPermissions(mediator);
+        return new GetUserPermissions(mediator, userIdentityService);
     }
 
     @Bean
     public UpdateUserProfile updateUserProfileEndpoint() {
-        return new UpdateUserProfile(mediator);
+        return new UpdateUserProfile(mediator, userIdentityService);
     }
 
     @Bean
