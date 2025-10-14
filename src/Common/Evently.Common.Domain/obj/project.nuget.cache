@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "5Sz4CbCoHbk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\alseny\\Downloads\\evently_source_code\\evently\\src\\Common\\Evently.Common.Domain\\Evently.Common.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\alseny\\.nuget\\packages\\sonaranalyzer.csharp\\9.24.0.89429\\sonaranalyzer.csharp.9.24.0.89429.nupkg.sha512",
+    "C:\\Users\\alseny\\.nuget\\packages\\ulid\\1.3.3\\ulid.1.3.3.nupkg.sha512"
+  ],
+  "logs": []
+}
