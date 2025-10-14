@@ -5,6 +5,7 @@ import com.evently.common.domain.Result;
 import com.evently.modules.attendance.application.abstractions.data.IAttendeeRepository;
 import com.evently.modules.attendance.domain.attendees.Attendee;
 import com.evently.modules.attendance.domain.tickets.Ticket;
+import com.evently.modules.ticketing.domain.tickets.ITicketRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;

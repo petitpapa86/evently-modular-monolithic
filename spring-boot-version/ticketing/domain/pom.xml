@@ -16,5 +16,10 @@
             <artifactId>common-domain</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.evently</groupId>
+            <artifactId>common-application</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

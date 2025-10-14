@@ -28,12 +28,13 @@ public class UserRegisteredDomainEventHandler implements IDomainEventHandler<Use
         logger.info("Handling UserRegisteredDomainEvent for user: {}", event.getUserId());
 
         // Fetch the user details to include in the integration event
-        var user = userRepository.findById(event.getUserId());
-        if (user == null) {
+        var userOptional = userRepository.get(event.getUserId());
+        if (userOptional.isEmpty()) {
             logger.error("User not found for ID: {}", event.getUserId());
             return;
         }
 
+        var user = userOptional.get();
         var integrationEvent = new UserRegisteredIntegrationEvent(
             event.getUserId(),
             user.getEmail(),

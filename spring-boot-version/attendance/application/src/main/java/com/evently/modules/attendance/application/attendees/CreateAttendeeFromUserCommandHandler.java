@@ -25,7 +25,7 @@ public class CreateAttendeeFromUserCommandHandler implements ICommandHandler<Cre
     @Transactional
     public Result<Void> handle(CreateAttendeeFromUserCommand request) {
         // Check if attendee already exists
-        if (attendeeRepository.existsById(request.userId())) {
+        if (attendeeRepository.findAttendeeById(request.userId()).isPresent()) {
             return Result.success(null); // Attendee already exists, nothing to do
         }
 
