@@ -7,6 +7,8 @@ import com.evently.common.presentation.endpoints.Permissions;
 import com.evently.common.presentation.endpoints.Tags;
 import com.evently.common.presentation.results.ApiResults;
 import com.evently.modules.users.application.users.updateuser.UpdateUserCommand;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerRequest;
@@ -58,6 +60,6 @@ public class UpdateUserProfile implements IEndpoint {
         }
     }
 
-    public record UpdateUserRequest(String firstName, String lastName) {
+    public record UpdateUserRequest(@NotBlank String firstName, @NotBlank String lastName) {
     }
 }

@@ -6,10 +6,12 @@ import com.evently.modules.ticketing.domain.orders.IOrderRepository;
 import com.evently.modules.ticketing.domain.orders.Order;
 import com.evently.modules.ticketing.domain.orders.OrderErrors;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Optional;
 
 @Component
+@Validated
 public class UpdateOrderCommandHandler implements ICommandHandler<UpdateOrderCommand, Void> {
 
     private final IOrderRepository orderRepository;

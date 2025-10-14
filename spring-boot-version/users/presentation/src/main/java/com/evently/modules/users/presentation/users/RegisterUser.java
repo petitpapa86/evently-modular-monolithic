@@ -6,6 +6,9 @@ import com.evently.common.presentation.endpoints.IEndpoint;
 import com.evently.common.presentation.endpoints.Tags;
 import com.evently.common.presentation.results.ApiResults;
 import com.evently.modules.users.application.users.registeruser.RegisterUserCommand;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
@@ -52,8 +55,8 @@ public class RegisterUser implements IEndpoint {
     }
 
     public record RegisterUserRequest(
-            String email,
-            String firstName,
-            String lastName) {
+            @NotBlank @Email String email,
+            @NotBlank String firstName,
+            @NotBlank String lastName) {
     }
 }

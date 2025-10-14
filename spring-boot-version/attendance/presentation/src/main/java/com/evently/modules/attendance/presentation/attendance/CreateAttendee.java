@@ -6,6 +6,9 @@ import com.evently.common.presentation.endpoints.IEndpoint;
 import com.evently.common.presentation.results.ApiResults;
 import com.evently.modules.attendance.application.attendees.CreateAttendeeCommand;
 import com.evently.modules.attendance.presentation.Tags;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
@@ -51,6 +54,6 @@ public class CreateAttendee implements IEndpoint {
         }
     }
 
-    public record CreateAttendeeRequest(String email, String firstName, String lastName) {
+    public record CreateAttendeeRequest(@NotBlank @Email String email, @NotBlank String firstName, @NotBlank String lastName) {
     }
 }

@@ -9,8 +9,10 @@ import com.evently.modules.attendance.domain.attendees.Attendee;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 @Component
+@Validated
 public class CreateAttendeeCommandHandler implements ICommandHandler<CreateAttendeeCommand, Void> {
     private final IAttendeeRepository attendeeRepository;
     private final IUnitOfWork unitOfWork;

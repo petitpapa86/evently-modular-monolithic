@@ -7,6 +7,9 @@ import com.evently.common.presentation.results.ApiResults;
 import com.evently.modules.events.application.events.updateevent.UpdateEventCommand;
 import com.evently.modules.events.presentation.Permissions;
 import com.evently.modules.events.presentation.Tags;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
@@ -60,10 +63,10 @@ public class UpdateEvent implements IEndpoint {
     }
 
     public record UpdateEventRequest(
-            String title,
-            String description,
-            String location,
-            LocalDateTime startsAtUtc,
+            @NotBlank String title,
+            @NotBlank String description,
+            @NotBlank String location,
+            @NotNull LocalDateTime startsAtUtc,
             Optional<LocalDateTime> endsAtUtc) {
     }
 }

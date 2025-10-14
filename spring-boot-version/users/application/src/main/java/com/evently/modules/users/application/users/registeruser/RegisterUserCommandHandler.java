@@ -9,9 +9,11 @@ import com.evently.modules.users.domain.users.UserErrors;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import java.util.UUID;
 
 @Component
+@Validated
 public class RegisterUserCommandHandler implements ICommandHandler<RegisterUserCommand, UUID> {
 
     private final IUserRepository userRepository;

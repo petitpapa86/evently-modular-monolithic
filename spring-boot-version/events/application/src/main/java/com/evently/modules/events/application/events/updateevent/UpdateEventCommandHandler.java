@@ -9,10 +9,12 @@ import com.evently.modules.events.domain.events.IEventRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Optional;
 
 @Component
+@Validated
 public class UpdateEventCommandHandler implements ICommandHandler<UpdateEventCommand, Void> {
 
     private final IEventRepository eventRepository;

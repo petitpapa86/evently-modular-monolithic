@@ -7,6 +7,9 @@ import com.evently.common.presentation.results.ApiResults;
 import com.evently.modules.ticketing.application.orders.additemtocart.AddItemToCartCommand;
 import com.evently.modules.ticketing.presentation.Permissions;
 import com.evently.modules.ticketing.presentation.Tags;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
@@ -53,8 +56,8 @@ public class AddToCart implements IEndpoint {
     }
 
     public record AddItemToCartRequest(
-            java.util.UUID customerId,
-            java.util.UUID ticketTypeId,
-            int quantity) {
+            @NotNull java.util.UUID customerId,
+            @NotNull java.util.UUID ticketTypeId,
+            @Min(1) int quantity) {
     }
 }

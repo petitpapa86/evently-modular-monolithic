@@ -5,10 +5,12 @@ import com.evently.common.domain.Result;
 import com.evently.modules.attendance.application.abstractions.data.IAttendeeRepository;
 import com.evently.modules.attendance.domain.attendees.Attendee;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Optional;
 
 @Component
+@Validated
 public class GetAttendeeQueryHandler implements IQueryHandler<GetAttendeeQuery, Optional<Attendee>> {
 
     private final IAttendeeRepository attendeeRepository;

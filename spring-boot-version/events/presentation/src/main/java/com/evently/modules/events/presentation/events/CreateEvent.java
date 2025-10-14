@@ -7,6 +7,9 @@ import com.evently.common.presentation.results.ApiResults;
 import com.evently.modules.events.application.events.createevent.CreateEventCommand;
 import com.evently.modules.events.presentation.Permissions;
 import com.evently.modules.events.presentation.Tags;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
@@ -58,11 +61,11 @@ public class CreateEvent implements IEndpoint {
     }
 
     public record CreateEventRequest(
-            UUID categoryId,
-            String title,
-            String description,
-            String location,
-            LocalDateTime startsAtUtc,
+            @NotNull UUID categoryId,
+            @NotBlank String title,
+            @NotBlank String description,
+            @NotBlank String location,
+            @NotNull LocalDateTime startsAtUtc,
             Optional<LocalDateTime> endsAtUtc) {
     }
 }

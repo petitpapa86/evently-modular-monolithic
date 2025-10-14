@@ -15,12 +15,14 @@ import com.evently.modules.ticketing.domain.events.ITicketTypeRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
 @Component
+@Validated
 public class ProcessPaymentCommandHandler implements ICommandHandler<ProcessPaymentCommand, Void> {
 
     private final IOrderRepository orderRepository;

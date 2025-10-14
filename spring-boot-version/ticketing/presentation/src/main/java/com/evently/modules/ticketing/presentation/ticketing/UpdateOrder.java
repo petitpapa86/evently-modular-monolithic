@@ -7,6 +7,8 @@ import com.evently.modules.ticketing.application.orders.updateorder.UpdateOrderC
 import com.evently.modules.ticketing.domain.orders.OrderStatus;
 import com.evently.modules.ticketing.presentation.Permissions;
 import com.evently.modules.ticketing.presentation.Tags;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.web.servlet.function.RouterFunction;
 import org.springframework.web.servlet.function.ServerRequest;
 import org.springframework.web.servlet.function.ServerResponse;
@@ -53,5 +55,5 @@ public class UpdateOrder implements IEndpoint {
         }
     }
 
-    public record UpdateOrderRequest(String status) {}
+    public record UpdateOrderRequest(@NotBlank String status) {}
 }
