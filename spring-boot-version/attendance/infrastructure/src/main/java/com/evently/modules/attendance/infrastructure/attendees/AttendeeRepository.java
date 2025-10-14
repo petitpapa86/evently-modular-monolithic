@@ -16,8 +16,8 @@ public interface AttendeeRepository extends JpaRepository<AttendeeEntity, UUID>,
     }
 
     @Override
-    default Attendee findAttendeeById(UUID id) {
+    default Optional<Attendee> findAttendeeById(UUID id) {
         Optional<AttendeeEntity> entity = findById(id);
-        return entity.map(AttendeeEntity::toDomain).orElse(null);
+        return entity.map(AttendeeEntity::toDomain);
     }
 }

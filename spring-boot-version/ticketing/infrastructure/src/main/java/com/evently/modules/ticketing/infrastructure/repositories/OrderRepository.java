@@ -38,6 +38,13 @@ public class OrderRepository implements IOrderRepository {
     }
 
     @Override
+    public List<Order> getAll() {
+        // TODO: Implement proper domain reconstruction with order items
+        // For now, return empty list as this is a simplified implementation
+        return List.of();
+    }
+
+    @Override
     public void insert(Order order) {
         OrderEntity entity = new OrderEntity(
                 order.getId(),

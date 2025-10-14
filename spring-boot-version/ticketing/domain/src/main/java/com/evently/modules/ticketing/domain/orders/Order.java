@@ -59,6 +59,10 @@ public class Order extends Entity {
         return Result.success();
     }
 
+    public void updateStatus(OrderStatus newStatus) {
+        this.status = newStatus;
+    }
+
     // Getters
     public UUID getId() { return id; }
     public UUID getCustomerId() { return customerId; }

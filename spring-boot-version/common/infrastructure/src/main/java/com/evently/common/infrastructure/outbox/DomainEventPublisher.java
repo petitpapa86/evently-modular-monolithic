@@ -17,9 +17,11 @@ public class DomainEventPublisher {
     private static final Logger logger = LoggerFactory.getLogger(DomainEventPublisher.class);
 
     private final IEventBus eventBus;
+    private final DomainEventDispatcher eventDispatcher;
 
-    public DomainEventPublisher(IEventBus eventBus) {
+    public DomainEventPublisher(IEventBus eventBus, DomainEventDispatcher eventDispatcher) {
         this.eventBus = eventBus;
+        this.eventDispatcher = eventDispatcher;
     }
 
     public void publishEvents(List<IDomainEvent> domainEvents) {
@@ -44,6 +46,13 @@ public class DomainEventPublisher {
     private void publishEventsAfterCommit(List<IDomainEvent> domainEvents) {
         try {
             logger.info("Publishing {} domain events after transaction commit", domainEvents.size());
+
+            // First dispatch to internal handlers
+            for (IDomainEvent domainEvent : domainEvents) {
+                eventDispatcher.dispatch(domainEvent);
+            }
+
+            // Then publish to external event bus
             eventBus.publishAll(domainEvents.toArray(new IDomainEvent[0]));
         } catch (Exception e) {
             logger.error("Failed to publish domain events after transaction commit", e);
