@@ -8,4 +8,8 @@ public interface ICustomerRepository {
     Optional<Customer> get(UUID customerId);
 
     void insert(Customer customer);
+
+    boolean existsById(UUID customerId);
+
+    void save(Customer customer);
 }

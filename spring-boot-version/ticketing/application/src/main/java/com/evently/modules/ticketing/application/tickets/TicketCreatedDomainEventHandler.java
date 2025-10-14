@@ -1,9 +1,9 @@
 package com.evently.modules.ticketing.application.tickets;
 
 import com.evently.common.application.IDomainEventHandler;
-import com.evently.common.domain.Result;
 import com.evently.modules.ticketing.domain.tickets.Ticket;
 import com.evently.modules.ticketing.domain.tickets.TicketCreatedDomainEvent;
+import com.evently.modules.ticketing.integrationevents.TicketPurchasedIntegrationEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -25,14 +25,14 @@ public class TicketCreatedDomainEventHandler implements IDomainEventHandler<Tick
     }
 
     @Override
-    public Result<Void> handle(TicketCreatedDomainEvent event) {
+    public void handle(TicketCreatedDomainEvent event) {
         logger.info("Handling TicketCreatedDomainEvent for ticket: {}", event.ticketId());
 
         // Get the ticket details
         var ticketOpt = ticketRepository.get(event.ticketId());
         if (ticketOpt.isEmpty()) {
             logger.error("Ticket not found: {}", event.ticketId());
-            return Result.failure();
+            return;
         }
 
         Ticket ticket = ticketOpt.get();
@@ -47,8 +47,6 @@ public class TicketCreatedDomainEventHandler implements IDomainEventHandler<Tick
 
         eventPublisher.publishEvent(integrationEvent);
         logger.info("Published TicketPurchasedIntegrationEvent for ticket: {}", ticket.getId());
-
-        return Result.success();
     }
 
     @Override

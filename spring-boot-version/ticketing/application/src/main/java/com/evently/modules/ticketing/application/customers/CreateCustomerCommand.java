@@ -1,5 +1,7 @@
 package com.evently.modules.ticketing.application.customers;
 
+import com.evently.common.application.ICommand;
+
 import java.util.UUID;
 
 public record CreateCustomerCommand(
@@ -7,5 +9,5 @@ public record CreateCustomerCommand(
     String email,
     String firstName,
     String lastName
-) {
+) implements ICommand<Void> {
 }

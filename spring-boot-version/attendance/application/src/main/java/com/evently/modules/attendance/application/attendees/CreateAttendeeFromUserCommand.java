@@ -1,5 +1,7 @@
 package com.evently.modules.attendance.application.attendees;
 
+import com.evently.common.application.ICommand;
+
 import java.util.UUID;
 
 public record CreateAttendeeFromUserCommand(
@@ -7,5 +9,5 @@ public record CreateAttendeeFromUserCommand(
     String email,
     String firstName,
     String lastName
-) {
+) implements ICommand<Void> {
 }

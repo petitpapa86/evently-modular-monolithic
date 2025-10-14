@@ -38,4 +38,17 @@ public class CustomerRepository implements ICustomerRepository {
         );
         jpaCustomerRepository.save(entity);
     }
+
+    @Override
+    public boolean existsById(UUID customerId) {
+        return jpaCustomerRepository.existsById(customerId);
+    }
+
+    @Override
+    public void save(Customer customer) {
+        // For now, just insert if not exists. In a real implementation, you might need to handle updates differently
+        if (!existsById(customer.getId())) {
+            insert(customer);
+        }
+    }
 }

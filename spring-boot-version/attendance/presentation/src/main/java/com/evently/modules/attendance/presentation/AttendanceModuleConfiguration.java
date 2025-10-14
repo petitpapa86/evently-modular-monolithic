@@ -8,6 +8,8 @@ import com.evently.modules.attendance.application.attendees.getattendee.GetAtten
 import com.evently.modules.attendance.application.attendees.getattendee.GetAttendeeQueryHandler;
 import com.evently.modules.attendance.application.attendees.getattendees.GetAttendeesQuery;
 import com.evently.modules.attendance.application.attendees.getattendees.GetAttendeesQueryHandler;
+import com.evently.modules.attendance.application.attendees.geteventstatistics.GetEventStatisticsQuery;
+import com.evently.modules.attendance.application.attendees.geteventstatistics.GetEventStatisticsQueryHandler;
 import com.evently.modules.attendance.application.tickets.CheckInTicketCommand;
 import com.evently.modules.attendance.application.tickets.CheckInTicketCommandHandler;
 import com.evently.modules.attendance.presentation.attendance.CreateAttendee;
