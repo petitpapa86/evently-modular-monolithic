@@ -6,7 +6,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity(name = "AttendanceTicketEntity")
-@Table(name = "tickets")
+@Table(name = "tickets", schema = "attendance")
 public class TicketEntity {
 
     @Id

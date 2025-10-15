@@ -7,7 +7,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Entity
-@Table(name = "outbox_messages")
+@Table(name = "outbox_messages", schema = "evently")
 public class OutboxMessage {
 
     @Id

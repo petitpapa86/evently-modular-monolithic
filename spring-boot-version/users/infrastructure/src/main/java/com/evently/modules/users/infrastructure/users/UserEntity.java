@@ -12,7 +12,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Entity(name = "UsersUserEntity")
-@Table(name = "users")
+@Table(name = "users", schema = "users")
 public class UserEntity {
     @Id
     private UUID id;

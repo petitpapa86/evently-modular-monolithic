@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Entity(name = "EventsEventEntity")
-@Table(name = "events")
+@Table(name = "events", schema = "events")
 public class EventEntity {
     @Id
     private UUID id;

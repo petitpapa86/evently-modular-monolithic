@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity(name = "EventsTicketTypeEntity")
-@Table(name = "ticket_types")
+@Table(name = "ticket_types", schema = "events")
 public class TicketTypeEntity {
     @Id
     private UUID id;

@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "categories", schema = "events")
 public class CategoryEntity {
     @Id
     private UUID id;
