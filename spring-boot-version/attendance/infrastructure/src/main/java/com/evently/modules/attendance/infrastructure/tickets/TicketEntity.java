@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "AttendanceTicketEntity")
 @Table(name = "tickets")
 public class TicketEntity {
 

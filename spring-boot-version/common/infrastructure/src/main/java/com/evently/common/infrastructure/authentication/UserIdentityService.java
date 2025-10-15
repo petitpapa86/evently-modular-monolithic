@@ -4,6 +4,8 @@ import com.evently.common.domain.Error;
 import com.evently.common.domain.Result;
 import com.evently.modules.users.application.users.getuser.GetUserQuery;
 import com.evently.modules.users.application.users.getuser.UserResponse;
+import com.evently.modules.users.application.users.getuserpermissions.GetUserPermissionsQuery;
+import com.evently.common.application.authorization.PermissionsResponse;
 import com.evently.common.application.IMediator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -52,5 +54,14 @@ public class UserIdentityService {
 
         GetUserQuery query = new GetUserQuery(userIdResult.getValue());
         return mediator.send(query);
+    }
+
+    public Result<PermissionsResponse> getUserPermissions(String identityId) {
+        try {
+            GetUserPermissionsQuery query = new GetUserPermissionsQuery(identityId);
+            return mediator.send(query);
+        } catch (Exception e) {
+            return Result.failure(Error.failure("Auth.PermissionCheckFailed", "Failed to retrieve user permissions"));
+        }
     }
 }

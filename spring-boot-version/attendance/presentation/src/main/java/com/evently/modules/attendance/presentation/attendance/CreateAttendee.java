@@ -5,6 +5,7 @@ import com.evently.common.domain.Result;
 import com.evently.common.presentation.endpoints.IEndpoint;
 import com.evently.common.presentation.results.ApiResults;
 import com.evently.modules.attendance.application.attendees.CreateAttendeeCommand;
+import com.evently.modules.attendance.presentation.Permissions;
 import com.evently.modules.attendance.presentation.Tags;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -29,7 +30,8 @@ public class CreateAttendee implements IEndpoint {
     @Override
     public RouterFunction<ServerResponse> mapEndpoint() {
         return route(POST("/attendees"), this::handle)
-                .withAttribute("tags", new String[]{Tags.Attendees});
+                .withAttribute("tags", new String[]{Tags.Attendees})
+                .withAttribute("permissions", new String[]{Permissions.CreateAttendee});
     }
 
     private ServerResponse handle(ServerRequest request) {

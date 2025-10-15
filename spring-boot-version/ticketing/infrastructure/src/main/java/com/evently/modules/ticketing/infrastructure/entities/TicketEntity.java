@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "TicketingTicketEntity")
 @Table(name = "tickets")
 public class TicketEntity {
 
@@ -60,5 +60,64 @@ public class TicketEntity {
     // Setters for updates
     public void setArchived(boolean archived) {
         this.archived = archived;
+    }
+
+    // Domain mapping methods
+    public static TicketEntity fromDomain(com.evently.modules.ticketing.domain.tickets.Ticket ticket) {
+        return new TicketEntity(
+                ticket.getId(),
+                ticket.getCustomerId(),
+                ticket.getOrderId(),
+                ticket.getEventId(),
+                ticket.getTicketTypeId(),
+                ticket.getCode(),
+                ticket.getCreatedAtUtc(),
+                ticket.isArchived()
+        );
+    }
+
+    public com.evently.modules.ticketing.domain.tickets.Ticket toDomain() {
+        // Note: This is a simplified mapping. In a real implementation,
+        // you would need to reconstruct the full domain object properly
+        // This might require additional repository calls to get related entities
+        try {
+            var ticketClass = Class.forName("com.evently.modules.ticketing.domain.tickets.Ticket");
+            var ticket = ticketClass.getDeclaredConstructor().newInstance();
+            var idField = ticketClass.getDeclaredField("id");
+            idField.setAccessible(true);
+            idField.set(ticket, id);
+
+            var customerIdField = ticketClass.getDeclaredField("customerId");
+            customerIdField.setAccessible(true);
+            customerIdField.set(ticket, customerId);
+
+            var orderIdField = ticketClass.getDeclaredField("orderId");
+            orderIdField.setAccessible(true);
+            orderIdField.set(ticket, orderId);
+
+            var eventIdField = ticketClass.getDeclaredField("eventId");
+            eventIdField.setAccessible(true);
+            eventIdField.set(ticket, eventId);
+
+            var ticketTypeIdField = ticketClass.getDeclaredField("ticketTypeId");
+            ticketTypeIdField.setAccessible(true);
+            ticketTypeIdField.set(ticket, ticketTypeId);
+
+            var codeField = ticketClass.getDeclaredField("code");
+            codeField.setAccessible(true);
+            codeField.set(ticket, code);
+
+            var createdAtUtcField = ticketClass.getDeclaredField("createdAtUtc");
+            createdAtUtcField.setAccessible(true);
+            createdAtUtcField.set(ticket, createdAtUtc);
+
+            var archivedField = ticketClass.getDeclaredField("archived");
+            archivedField.setAccessible(true);
+            archivedField.set(ticket, archived);
+
+            return (com.evently.modules.ticketing.domain.tickets.Ticket) ticket;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to map TicketEntity to domain", e);
+        }
     }
 }

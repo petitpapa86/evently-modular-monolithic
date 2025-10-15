@@ -24,6 +24,12 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
+
+import org.springframework.context.ApplicationListener;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Configuration
 @EnableScheduling
 @EnableJpaRepositories(basePackages = {
@@ -34,24 +40,16 @@ import java.util.List;
     "com.evently.common.infrastructure.outbox",
     "com.evently.common.infrastructure.inbox"
 })
-public class InfrastructureConfiguration {
+public class InfrastructureConfiguration implements ApplicationListener<ApplicationReadyEvent> {
 
     @Autowired
     private DomainEventDispatcher eventDispatcher;
 
-    @Bean
-    @Primary
-    public IEventBus eventBus(OutboxEventBus outboxEventBus) {
-        return outboxEventBus;
-    }
-
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    }
-
-    @PostConstruct
-    public void registerEventHandlers(List<IDomainEventHandler<?>> eventHandlers) {
+    @Override
+    public void onApplicationEvent(ApplicationReadyEvent event) {
+        // Get the application context to get the beans
+        var context = event.getApplicationContext();
+        var eventHandlers = context.getBeansOfType(IDomainEventHandler.class).values();
         for (IDomainEventHandler<?> handler : eventHandlers) {
             eventDispatcher.registerHandler(handler);
         }
@@ -60,7 +58,7 @@ public class InfrastructureConfiguration {
     @Bean
     public IIntegrationEventBus integrationEventBus(
             ApplicationEventPublisher applicationEventPublisher,
-            List<IIntegrationEventHandler<?>> handlers) {
+            @Lazy List<IIntegrationEventHandler<?>> handlers) {
         return new InMemoryIntegrationEventBus(applicationEventPublisher, handlers);
     }
 

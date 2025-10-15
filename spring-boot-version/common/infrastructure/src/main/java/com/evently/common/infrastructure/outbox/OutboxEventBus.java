@@ -11,7 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 
+import org.springframework.context.annotation.Primary;
+
 @Component
+@Primary
 public class OutboxEventBus implements IEventBus {
 
     private static final Logger logger = LoggerFactory.getLogger(OutboxEventBus.class);

@@ -33,7 +33,7 @@ public class ProcessPayment implements IEndpoint {
     public RouterFunction<ServerResponse> mapEndpoint() {
         return route(POST("/ticketing/orders/{orderId}/payment"), this::handle)
                 .withAttribute("tags", new String[]{Tags.Orders})
-                .withAttribute("permissions", new String[]{Permissions.CreateOrder});
+                .withAttribute("permissions", new String[]{Permissions.ProcessPayment});
     }
 
     private ServerResponse handle(ServerRequest request) {

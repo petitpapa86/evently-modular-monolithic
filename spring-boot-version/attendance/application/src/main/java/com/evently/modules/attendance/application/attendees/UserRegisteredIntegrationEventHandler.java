@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("attendanceUserRegisteredIntegrationEventHandler")
 public class UserRegisteredIntegrationEventHandler implements IIntegrationEventHandler<UserRegisteredIntegrationEvent> {
 
     private static final Logger logger = LoggerFactory.getLogger(UserRegisteredIntegrationEventHandler.class);

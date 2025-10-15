@@ -21,7 +21,7 @@ public class GetAttendeesQueryHandler implements IQueryHandler<GetAttendeesQuery
 
     @Override
     public Result<List<Attendee>> handle(GetAttendeesQuery query) {
-        List<Attendee> attendees = attendeeRepository.getAll();
+        List<Attendee> attendees = attendeeRepository.retrieveAll();
         return Result.success(attendees);
     }
 }

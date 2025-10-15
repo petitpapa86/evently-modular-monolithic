@@ -16,16 +16,5 @@ public class IntegrationEventHandlerConfiguration {
     @Autowired
     private InboxMessageConsumerRepository inboxMessageConsumerRepository;
 
-    @Bean
-    public BeanPostProcessor idempotentIntegrationEventHandlerPostProcessor() {
-        return new BeanPostProcessor() {
-            @Override
-            public Object postProcessAfterInitialization(Object bean, String beanName) {
-                if (bean instanceof IIntegrationEventHandler) {
-                    return new IdempotentIntegrationEventHandler<>((IIntegrationEventHandler<IntegrationEvent>) bean, inboxMessageConsumerRepository);
-                }
-                return bean;
-            }
-        };
-    }
+    // Removed duplicate bean definition - using the one in InfrastructureConfiguration instead
 }
